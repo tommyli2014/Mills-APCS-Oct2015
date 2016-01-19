@@ -42,6 +42,10 @@ public class Magpie4
         {
             response = "Why so negative?";
         }
+        else if(findKeyword(statement, "I like") >= 0)
+        {
+             response = transformILikeStatement(statement);
+        }
         else if (findKeyword(statement, "mother") >= 0
                 || findKeyword(statement, "father") >= 0
                 || findKeyword(statement, "sister") >= 0
@@ -55,6 +59,22 @@ public class Magpie4
         {
             response = transformIWantToStatement(statement);
         }
+        else if (findKeyword(statement, "cat") >= 0
+                 || findKeyword(statement, "dog") >= 0
+                 || findKeyword(statement, "goldfish") >= 0)
+        {
+            response = "Tell me more about your pet.";
+        }
+        else if(findKeyword(statement, "damn") >= 0){
+             response = "Please be nice.";
+        }
+        else if(findKeyword(statement, "weather") >=0){
+             response = "It's nice today.";
+        }
+        else if(findKeyword(statement, "hello") >= 0){
+             response = "Hello!";
+        }
+        
 
         else
         {
@@ -156,6 +176,27 @@ public class Magpie4
         
         String restOfStatement = statement.substring(psnOfI + 1, psnOfYou).trim();
         return "Why do you " + restOfStatement + " me?";
+    }
+    
+    
+    
+    //This method response to "I like something" statement
+    private String transformILikeStatement(String statement)
+    {
+        //  Remove the final period, if there is one
+        statement = statement.trim();
+        String lastChar = statement.substring(statement
+                .length() - 1);
+        if (lastChar.equals("."))
+        {
+            statement = statement.substring(0, statement
+                    .length() - 1);
+        }
+        
+        int psnOfILike = findKeyword (statement, "I like", 0);
+        
+        String restOfStatement = statement.substring(psnOfILike + 1, statement.length()).trim();
+        return "What do you like about " + restOfStatement + "?";
     }
     
     
